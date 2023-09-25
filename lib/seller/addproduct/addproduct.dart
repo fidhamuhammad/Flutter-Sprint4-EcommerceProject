@@ -1,0 +1,1 @@
+export 'view/addProduct_page.dart';
