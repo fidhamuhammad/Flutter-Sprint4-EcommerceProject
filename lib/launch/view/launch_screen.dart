@@ -1,60 +1,91 @@
-import 'package:e_commerce_app/customer/login/login.dart';
-import 'package:e_commerce_app/seller/signin/login.dart';
+import 'package:animated_background/animated_background.dart';
+import 'package:e_commerce_app/customer/customerlaunch/view/customerlaunch.dart';
+import 'package:e_commerce_app/seller/sellerlaunch/view/sellerlaunch.dart';
 import 'package:flutter/material.dart';
 
-class LaunchScreen extends StatelessWidget {
+class LaunchScreen extends StatefulWidget {
   const LaunchScreen({super.key});
 
   @override
+  State<LaunchScreen> createState() => _LaunchScreenState();
+}
+
+class _LaunchScreenState extends State<LaunchScreen> with TickerProviderStateMixin {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 4, 66, 124),
-        centerTitle: true,
-        title: Text(
-          "LakeStore",
-          style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w400,
-              fontStyle: FontStyle.italic),
+      body: AnimatedBackground(
+        
+        behaviour: 
+        RandomParticleBehaviour(
+          options: const ParticleOptions(
+            spawnMaxRadius: 20,
+            spawnMinSpeed: 10.00,
+            particleCount: 68,
+            spawnMaxSpeed: 50,
+            minOpacity: 0.3,
+            spawnOpacity: 0.4,
+            baseColor: Color.fromARGB(255, 21, 79, 126),
+            // image: Image(image: AssetImage('assets/images/sell.jpeg'))
+          )
         ),
-        leading: Icon(
-          Icons.shopping_basket_rounded,
-          color: Colors.white,
-        ),
-      ),
-      body: Stack(
+        vsync: this,
+        child:  
+        Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset(
-            'assets/images/bg.jpeg',
-            fit: BoxFit.fill,
-          ),
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0)),
                     backgroundColor: Color.fromARGB(255, 4, 66, 124),
                   ),
                   onPressed: () {
-                   Navigator.push(context, MaterialPageRoute(builder: (context) => Loginscreen(),));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CustomerLaunch(),
+                        ));
                   },
-                  child: Text('Customer',
-                  style: TextStyle(color: Colors.white),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.person_2_rounded, color: Colors.white),
+                      SizedBox(width: 8.0),
+                      Text(
+                        'Customer',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(height: 10),
-                 ElevatedButton(
+                ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0)),
                     backgroundColor: Color.fromARGB(255, 4, 66, 124),
                   ),
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Loginpage(),));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SellersLaunch(),
+                        ));
                   },
-                  child: Text('Seller',
-                  style: TextStyle(color: Colors.white),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.sell_rounded, color: Colors.white),
+                      Text(
+                        'Seller',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -62,6 +93,101 @@ class LaunchScreen extends StatelessWidget {
           ),
         ],
       ),
+        ),
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import 'package:e_commerce_app/customer/customerlaunch/view/customerlaunch.dart';
+// import 'package:e_commerce_app/seller/sellerlaunch/view/sellerlaunch.dart';
+// import 'package:flutter/material.dart';
+
+// class LaunchScreen extends StatelessWidget {
+//   const LaunchScreen({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: Colors.transparent,
+//       body: Stack(
+//         fit: StackFit.expand,
+//         children: [
+//           Center(
+//             child: Column(
+//               mainAxisAlignment: MainAxisAlignment.center,
+//               children: [
+//                 ElevatedButton(
+//                   style: ElevatedButton.styleFrom(
+//                     shape: RoundedRectangleBorder(
+//                         borderRadius: BorderRadius.circular(8.0)),
+//                     backgroundColor: Color.fromARGB(255, 4, 66, 124),
+//                   ),
+//                   onPressed: () {
+//                     Navigator.push(
+//                         context,
+//                         MaterialPageRoute(
+//                           builder: (context) => CustomerLaunch(),
+//                         ));
+//                   },
+//                   child: Row(
+//                     mainAxisSize: MainAxisSize.min,
+//                     children: [
+//                       Icon(Icons.person_2_rounded, color: Colors.white),
+//                       SizedBox(width: 8.0),
+//                       Text(
+//                         'Customer',
+//                         style: TextStyle(color: Colors.white),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//                 SizedBox(height: 10),
+//                 ElevatedButton(
+//                   style: ElevatedButton.styleFrom(
+//                     shape: RoundedRectangleBorder(
+//                         borderRadius: BorderRadius.circular(8.0)),
+//                     backgroundColor: Color.fromARGB(255, 4, 66, 124),
+//                   ),
+//                   onPressed: () {
+//                     Navigator.push(
+//                         context,
+//                         MaterialPageRoute(
+//                           builder: (context) => SellersLaunch(),
+//                         ));
+//                   },
+//                   child: Row(
+//                     mainAxisSize: MainAxisSize.min,
+//                     children: [
+//                       Icon(Icons.sell_rounded, color: Colors.white),
+//                       Text(
+//                         'Seller',
+//                         style: TextStyle(color: Colors.white),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+ 

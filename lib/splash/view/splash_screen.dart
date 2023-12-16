@@ -32,16 +32,20 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 57, 93, 201),
+      backgroundColor: Color.fromARGB(255, 151, 172, 236),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.shopping_basket_rounded,
-              size: 100.0,
-              color: Colors.white60 
-               
+            // Icon(
+            //   Icons.shopping_basket_rounded,
+            //   size: 100.0,
+            //   color: Colors.white60                
+            // ),
+            Text('LakeStore',
+            style: TextStyle(
+              color: Colors.white38, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold, fontSize: 50
+              ),
             ),
           ],
         ),

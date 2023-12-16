@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce_app/customer/productdetails/repository/add_cart_repo.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetails extends StatelessWidget {
-  const ProductDetails({super.key});
+  const ProductDetails({super.key, required this.productDataDocIndex});
+  final QueryDocumentSnapshot<Map<String, dynamic>> productDataDocIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -23,68 +26,71 @@ class ProductDetails extends StatelessWidget {
           color: Colors.white,
         ),
       ),
-      body: Card(
-        elevation: 4,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: Column(
-          children: [
-            ListTile(
-              leading: Icon(Icons.android), // Icon or image
-              title: Text('Card Title'), // Title
-              subtitle: Text('Card Subtitle'), // Subtitle
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(24.0),
+            child:
+            Image.network(
+              productDataDocIndex['uploadimage'].toString(),
+              fit: BoxFit.fill,
+              height: 100,
+              width: 100,
             ),
-             Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Text(
-          'Card Content Goes Here',
-          style: TextStyle(fontSize: 16.0),
-        ),
-      ),
-          ],
-        ),
+            
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'product Name : ${productDataDocIndex['proname'].toString()}',
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'product Price : ${productDataDocIndex['proprice'].toString()}',
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'product Description : ${productDataDocIndex['prodescription'].toString()}',
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+                'product Code : ${productDataDocIndex['procode'].toString()}'),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'product Stock : ${productDataDocIndex['prostock'].toString()}',
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            ),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color.fromARGB(255, 49, 124, 178),
+            ),
+            onPressed: () async {
+              await AddCartRepo().addToCart(productDataDocIndex, context);
+              Navigator.pop(context);
+            },
+            child: Text(
+              'add to cart',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
-
-
-// body: Column(
-//         children: [
-//           Padding(
-//             padding: const EdgeInsets.all(24.0),
-//             child: Image.asset(
-//               'assets/images/bag.jpeg',
-//               height: 200,
-//               width: 200,
-//             ),
-//           ),
-//           Padding(
-//             padding: const EdgeInsets.all(8.0),
-//             child: Text(
-//               'code',
-//               style:
-//                   TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-//             ),
-//           ),
-//           Padding(
-//             padding: const EdgeInsets.all(8.0),
-//             child: Text(
-//               'price',
-//               style:
-//                   TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-//             ),
-//           ),
-//           ElevatedButton(
-//               style: ElevatedButton.styleFrom(
-//                 backgroundColor: Color.fromARGB(255, 49, 124, 178),
-//               ),
-//               onPressed: () {},
-//               child: Text(
-//                 'add to cart',
-//                 style:
-//                     TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-//               ))
-//         ],
-//       ),
