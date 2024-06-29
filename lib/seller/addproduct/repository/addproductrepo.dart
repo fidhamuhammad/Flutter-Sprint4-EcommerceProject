@@ -40,7 +40,8 @@ class AddProductRepo{
            'prodescription': pdescription,
            'prostock': pstock,
            'proprice': price,
-           'uploadimage': productImages[0].toString(),
+          //  'uploadimage': productImages[0].toString(),
+          'uploadimage': productImages, // Store the list of URLs
           }
         );
       }on FirebaseAuthException catch (e) {

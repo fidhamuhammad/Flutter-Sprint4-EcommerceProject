@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/customer/Auth/view/auth_view.dart';
 import 'package:e_commerce_app/splash/view/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -22,9 +23,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:   SplashScreen(),
+      home: const CheckAuth(),
     );
   }
 }
 
- 

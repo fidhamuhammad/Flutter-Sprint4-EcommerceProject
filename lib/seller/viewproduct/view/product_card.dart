@@ -10,7 +10,33 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final productName = viewproduct['proname'];
     final productDescription = viewproduct['prodescription'];
-    final productImages = viewproduct['uploadimage'] as List; // Ensure it's a List.
+    // final productImages = viewproduct['uploadimage'] as List<dynamic>; // Ensure it's a List.
+    final productImages = viewproduct['uploadimage']; // Ensure correct type handling
+    // Handle single image case
+    List<String> images;
+    if (productImages is String) {
+      images = [productImages]; // Convert single string to list
+    } else if (productImages is List) {
+      images = List<String>.from(productImages); // Ensure it's a List of Strings
+    } else {
+      images = [];
+    }
+
+    // Debugging prints
+    print('Product Name: $productName');
+    print('Product Images: $images');
+    for (var url in images) {
+      print('URL: $url');
+    }
+
+    
+    // Filter and clean up the URLs
+    List<String> validImages = images
+        .map((url) => url.replaceAll(RegExp(r'\[|\]'), '')) // Remove brackets
+        .where((url) => Uri.tryParse(url)?.hasAbsolutePath ?? false) // Check for valid URL
+        .toList();
+        
+
     final productCode = viewproduct['procode'];
     final productStock = viewproduct['prostock'];
     
@@ -27,14 +53,17 @@ class ProductCard extends StatelessWidget {
         
         children: <Widget>[
           // Iterate over the list of image URLs
-          for (String image in productImages)
+          for (String image in validImages)
             Center(
               
               child: Image.network(
                 image,
-                height: 80,
+                height: 90,
                 // width: double.infinity,
                 fit: BoxFit.cover,
+                 errorBuilder: (context, error, stackTrace) {
+                    return Text('Image not available'); // Fallback if the image fails to load
+                  },
               ),
             ),
             

@@ -11,6 +11,17 @@ class AddCartRepo {
     final _auth = FirebaseAuth.instance;
     final CollectionReference cart = FirebaseFirestore.instance.collection('cart');
     var uuid = Uuid();
+
+    // Clean and validate the image URL
+    String imageUrl = productData['uploadimage'].toString();
+    imageUrl = imageUrl.replaceAll(RegExp(r'\[|\]'), '').trim();
+    bool isValidUrl = Uri.tryParse(imageUrl)?.hasAbsolutePath ?? false;
+
+    // Fallback for invalid URL
+    if (!isValidUrl) {
+      imageUrl = '';
+    }
+
     try {
       dynamic val;
       var userCartData = await cart
@@ -42,7 +53,7 @@ class AddCartRepo {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to add cart')));
       }
     }on FirebaseException catch (e) {
-      throw Exception('Failed to add cart');
+      throw Exception('Failed to add to cart: $e');
     }
   }
 }
